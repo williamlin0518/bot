@@ -5,14 +5,16 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImagemapS
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
+
 channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 
 
 def send_text_message(reply_token, text):
     line_bot_api = LineBotApi(channel_access_token)
-    line_bot_api.reply_message(reply_token, TextSendMessage(text=text+" 123"))
+    line_bot_api.reply_message(reply_token, TextSendMessage(text=text + " 123"))
 
     return "OK"
+
 
 def imagemap_message():
     message = ImagemapSendMessage(
@@ -58,6 +60,7 @@ def imagemap_message():
         ]
     )
     return message
+
 
 """
 def send_image_url(id, img_url):
