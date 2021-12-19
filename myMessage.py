@@ -6,8 +6,8 @@ from utils import *
 def massage_handler(input, line_bot_api, event):
     if '看電影' in input:
         message = imagemap_message()
-        send_text_message(event.reply_token, "請點選你要去哪看")
-        line_bot_api.reply_message(event.reply_token, message)
+        send_text_message(event.reply_token, "請點選你要去哪看"+message)
+        #line_bot_api.reply_message(event.reply_token, message)
 
     elif '功能' in input:
 
