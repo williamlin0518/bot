@@ -6,10 +6,12 @@ from linebot.models import *
 def massage_handler(input, line_bot_api, event):
     if '看電影' in input:
         message = imagemap_message()
+        line_bot_api.reply_message(event.reply_token, "請點選你要去哪看")
         line_bot_api.reply_message(event.reply_token, message)
+
     elif '功能' in input:
-        message = "輸入 看電影\n" \
-                  "輸入 查電影 "
+        message = "輸入 看電影\n"
+
         line_bot_api.reply_message(event.reply_token, message)
     else:
         message = TextSendMessage(text=input)
