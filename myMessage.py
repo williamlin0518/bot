@@ -3,6 +3,15 @@ from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 
 
+def massage_handler(input, line_bot_api, event):
+    if '最新' in input:
+        message = imagemap_message()
+        line_bot_api.reply_message(event.reply_token, message)
+    else:
+        message = TextSendMessage(text=input)
+        line_bot_api.reply_message(event.reply_token, message)
+
+
 # ImagemapSendMessage(組圖訊息)
 def imagemap_message():
     message = ImagemapSendMessage(
