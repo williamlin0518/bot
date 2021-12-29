@@ -1,6 +1,6 @@
 from transitions.extensions import GraphMachine
 
-from utils import send_text_message
+from utils import *
 
 
 class TocMachine(GraphMachine):
@@ -9,6 +9,20 @@ class TocMachine(GraphMachine):
 
     def is_going_to_state1(self, event):
         text = event.message.text
+        title = '看啥電影'
+        text = '科幻？ 浪漫？'
+        btn = [
+            MessageTemplateAction(
+                label='科幻',
+                text='？？'
+            ),
+            MessageTemplateAction(
+                label='浪漫',
+                text='？？'
+            ),
+        ]
+        url = 'https://i.imgur.com/8Vvxj0S.jpg'
+        send_button_message(event.reply_token, title, text, btn, url)
         return text.lower() == "go to state1"
 
     def is_going_to_state2(self, event):
