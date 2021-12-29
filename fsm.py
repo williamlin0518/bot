@@ -44,10 +44,15 @@ class TocMachine(GraphMachine):
         print("I'm entering state2")
         response = requests.get(url)
 
-        # BeautifulSoup(response.content, 'html.parser')
-        # soup = BeautifulSoup(response.content, 'html.parser')
-        # souptext = soup[0:400]
-        send_text_message(event.reply_token, "state2")
+        soup=BeautifulSoup(response.content, 'html.parser')
+        movie_data =soup.findAll('div',attrs={'class': 'lister-item mode-advanced'})
+
+        for store in movie_data:
+             name=store.h3.a.text
+
+        send_text_message(event.reply_token, name)
+
+        self.go_back()
 
     def on_exit_state2(self):
         print("Leaving state2")
