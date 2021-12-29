@@ -76,7 +76,10 @@ def callback():
         # )
         # message = imagemap_message()
         # line_bot_api.reply_message(event.reply_token, message)
-        massage_handler(event.message.text, line_bot_api, event)
+        response = machine.advance(event)
+        if not response:
+            send_text_message(event.reply_token, "不懂你要幹嘛")
+        # massage_handler(event.message.text, line_bot_api, event)
 
     return "OK"
 
