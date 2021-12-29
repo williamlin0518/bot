@@ -4,7 +4,7 @@ from linebot.models import *
 from utils import *
 # import pandas as pd
 import requests
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 
 location = ""
 url = 'https://www.imdb.com/search/title/?count=100&groups=top_1000&sort=user_rating'
