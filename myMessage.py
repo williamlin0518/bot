@@ -1,13 +1,15 @@
-import imdb
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 from utils import *
-
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 location = ""
 
-moviesDB = imdb.IMDb()
-movies = moviesDB.search_movie('')
+
+# moviesDB = imdb.IMDb()
+# movies = moviesDB.search_movie('')
 def massage_handler(input, line_bot_api, event):
     if '看電影' in input:
         message = imagemap_message()
