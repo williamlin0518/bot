@@ -87,7 +87,7 @@ def callback():
 
         if not response:
            send_text_message(event.reply_token, "不懂你要幹嘛")
-        # massage_handler(event.message.text, line_bot_api, event)
+
 
     return "OK"
 

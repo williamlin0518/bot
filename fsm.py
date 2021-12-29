@@ -13,17 +13,9 @@ class TocMachine(GraphMachine):
 
     def is_going_to_state1(self, event):
         text = event.message.text
+        return text.lower() == "1"             # user to state1
 
-        return text.lower() == "1"
-
-    def is_going_to_state2(self, event):
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content,'html.parser')
-        send_text_message(event.reply_token, soup)
-        text = event.message.text
-        return text.lower() == "2"
-
-    def on_enter_state1(self, event):
+    def on_enter_state1(self, event):         # when enter state1
         print("I'm entering state1")
 
         title = '看啥電影'
@@ -31,11 +23,11 @@ class TocMachine(GraphMachine):
         btn = [
             MessageTemplateAction(
                 label='科幻',
-                text='？？'
+                text='科幻'
             ),
             MessageTemplateAction(
                 label='浪漫',
-                text='？？'
+                text='浪漫'
             ),
         ]
         url = 'https://i.imgur.com/8Vvxj0S.jpg'
@@ -44,15 +36,17 @@ class TocMachine(GraphMachine):
 
 
 
-    def on_exit_state1(self):
-        print("Leaving state1")
+    def is_going_to_state2(self, event):
+        text = event.message.text
+        return text.lower() == "科幻"
+
 
     def on_enter_state2(self, event):
         print("I'm entering state2")
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        send_text_message(event.reply_token, soup)
 
-        reply_token = event.reply_token
-        send_text_message(reply_token, "Trigger state2")
-        self.go_back()
 
     def on_exit_state2(self):
         print("Leaving state2")
