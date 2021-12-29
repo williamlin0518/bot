@@ -76,12 +76,9 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
+        if not isinstance(event.message.text, str):
+            continue
 
-        # line_bot_api.reply_message(
-        #     event.reply_token, TextSendMessage(text=event.message.text + " 456")
-        # )
-        # message = imagemap_message()
-        #line_bot_api.reply_message(event.reply_token, message)
         response = machine.advance(event)
         # send_text_message(event.reply_token, "不懂你要幹嘛")
 

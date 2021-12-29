@@ -44,10 +44,10 @@ class TocMachine(GraphMachine):
         print("I'm entering state2")
         response = requests.get(url)
 
-        BeautifulSoup(response.content, 'html.parser')
-        soup = BeautifulSoup(response.content, 'html.parser')
-        souptext = soup[0:400]
-        send_text_message(event.reply_token, souptext)
+        # BeautifulSoup(response.content, 'html.parser')
+        # soup = BeautifulSoup(response.content, 'html.parser')
+        # souptext = soup[0:400]
+        send_text_message(event.reply_token, "state2")
 
     def on_exit_state2(self):
         print("Leaving state2")
