@@ -1,11 +1,11 @@
 #!/Users/linchengwei/bot/venv3.7/bin/python
 # -*- coding: utf-8 -*-
 """
-get_keyword.py
+search_character.py
 
-Usage: get_keyword "keyword"
+Usage: search_character "character name"
 
-search for movies tagged with the given keyword and print the results.
+Search for the given name and print the results.
 """
 
 import sys
@@ -20,7 +20,7 @@ except ImportError:
 
 if len(sys.argv) != 2:
     print('Only one argument is required:')
-    print('  %s "keyword"' % sys.argv[0])
+    print('  %s "character name"' % sys.argv[0])
     sys.exit(2)
 
 name = sys.argv[1]
@@ -28,9 +28,11 @@ name = sys.argv[1]
 
 i = imdb.IMDb()
 
+out_encoding = sys.stdout.encoding or sys.getdefaultencoding()
+
 try:
-    # Do the search, and get the results (a list of movies).
-    results = i.get_keyword(name, results=20)
+    # Do the search, and get the results (a list of character objects).
+    results = i.search_character(name)
 except imdb.IMDbError as e:
     print("Probably you're not connected to Internet.  Complete error report:")
     print(e)
@@ -40,9 +42,11 @@ except imdb.IMDbError as e:
 print('    %s result%s for "%s":' % (len(results),
                                      ('', 's')[len(results) != 1],
                                      name))
-print(' : movie title')
+print('characterID\t: imdbID : name')
 
-# Print the long imdb title for every movie.
-for idx, movie in enumerate(results):
-    outp = '%d: %s' % (idx+1, movie['long imdb title'])
+# Print the long imdb name for every character.
+for character in results:
+    outp = '%s\t\t: %s : %s' % (character.characterID,
+                                 i.get_imdbID(character),
+                                 character['long imdb name'])
     print(outp)
