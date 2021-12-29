@@ -2,7 +2,7 @@ from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 from utils import *
-# import imdb;
+import imdb
 location = ""
 def massage_handler(input, line_bot_api, event):
     if '看電影' in input:
