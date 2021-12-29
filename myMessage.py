@@ -2,10 +2,12 @@ from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 from utils import *
-import pandas as pd
+# import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
 location = ""
+url = 'https://www.imdb.com/search/title/?count=100&groups=top_1000&sort=user_rating'
 
 
 # moviesDB = imdb.IMDb()

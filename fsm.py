@@ -1,7 +1,11 @@
+import requests
 from transitions.extensions import GraphMachine
 
 from utils import *
+from bs4 import BeautifulSoup
 
+location = ""
+url = 'https://www.imdb.com/search/title/?count=100&groups=top_1000&sort=user_rating'
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -26,6 +30,9 @@ class TocMachine(GraphMachine):
         return text.lower() == "go to state1"
 
     def is_going_to_state2(self, event):
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content,'html.parser')
+        send_text_message(event.reply_token, soup)
         text = event.message.text
         return text.lower() == "go to state2"
 
