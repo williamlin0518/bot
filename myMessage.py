@@ -4,6 +4,9 @@ from linebot.models import *
 from utils import *
 import imdb
 location = ""
+
+moviesDB = imdb.IMDb()
+movies = moviesDB.se
 def massage_handler(input, line_bot_api, event):
     if '看電影' in input:
         message = imagemap_message()
