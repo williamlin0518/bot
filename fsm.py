@@ -52,8 +52,8 @@ class TocMachine(GraphMachine):
         for store in movie_data:
             name = store.h3.a.text
             char_number += len(name)
-            if char_number > 100:
-                break
+            # if char_number > 100:
+            #     break
             str += name
 
 
