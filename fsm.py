@@ -45,6 +45,7 @@ class TocMachine(GraphMachine):
         response = requests.get(url)
         movie_name = []
         char_number = 0
+        str = ""
         soup = BeautifulSoup(response.content, 'html.parser')
         movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
 
@@ -53,9 +54,10 @@ class TocMachine(GraphMachine):
             char_number += len(name)
             if char_number > 100:
                 break
-            movie_name.append(name)
+            str += name
 
-        send_text_message(event.reply_token, movie_name)
+
+        send_text_message(event.reply_token,str )
 
         self.go_back()
 
