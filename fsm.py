@@ -55,10 +55,9 @@ class TocMachine(GraphMachine):
             # if char_number > 100:
             #     break
             str += name
+            str += "\n"
 
-
-
-        send_text_message(event.reply_token,str )
+        send_text_message(event.reply_token, str)
 
         self.go_back()
 
