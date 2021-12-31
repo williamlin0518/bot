@@ -44,11 +44,15 @@ class TocMachine(GraphMachine):
         print("I'm entering state2")
         response = requests.get(url)
         movie_name = []
+        char_number = 0
         soup = BeautifulSoup(response.content, 'html.parser')
         movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
 
         for store in movie_data:
             name = store.h3.a.text
+            char_number += len(name)
+            if char_number > 100:
+                break
             movie_name.append(name)
 
         send_text_message(event.reply_token, movie_name)
