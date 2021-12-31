@@ -57,6 +57,7 @@ class TocMachine(GraphMachine):
             str += name
 
 
+
         send_text_message(event.reply_token,str )
 
         self.go_back()
