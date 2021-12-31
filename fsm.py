@@ -16,7 +16,7 @@ class TocMachine(GraphMachine):
 
     def is_going_to_state1(self, event):
         text = event.message.text
-        return text.lower() == "1"  # user to state1
+        return text.lower() == "想看電影了"  # user to state1
 
     def on_enter_state1(self, event):  # when enter state1
         print("I'm entering state1")
@@ -43,14 +43,15 @@ class TocMachine(GraphMachine):
     def on_enter_state2(self, event):
         print("I'm entering state2")
         response = requests.get(url)
-
-        soup=BeautifulSoup(response.content, 'html.parser')
-        movie_data =soup.findAll('div',attrs={'class': 'lister-item mode-advanced'})
+        movie_name = []
+        soup = BeautifulSoup(response.content, 'html.parser')
+        movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
 
         for store in movie_data:
-             name=store.h3.a.text
+            name = store.h3.a.text
+            movie_name.append(name)
 
-        send_text_message(event.reply_token, name)
+        send_text_message(event.reply_token, movie_name)
 
         self.go_back()
 
