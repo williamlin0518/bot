@@ -19,7 +19,7 @@ movie_dic = {
     'metascore': 0,
     'votes': 0,
     'gross': '',
-    'intro':''
+    'intro': ''
 }
 
 
@@ -29,9 +29,7 @@ class TocMachine(GraphMachine):
 
     def is_going_to_user(self, event):
         text = event.message.text
-        return text.lower() =="I don't have time" or text.lower() =="謝了 這不錯"   #
-
-
+        return text.lower() == "I don't have time" or text.lower() == "謝了 這不錯"  #
 
     def is_going_to_menu(self, event):
         text = event.message.text
@@ -63,22 +61,18 @@ class TocMachine(GraphMachine):
         url = 'https://i.imgur.com/8Vvxj0S.jpg'
         send_button_message(event.reply_token, title, text, btn, url)
 
-
-
-
     def is_going_to_whichKind(self, event):
         text = event.message.text
         return text.lower() == "想找電影"  #
+
     def on_enter_whichKind(self, event):  # when enter whichKind
         print("in whichKind")
         message = myMessage.chooseTypes
 
         message_to_reply = FlexSendMessage("選種類", message)
 
-
         line_bot_api = LineBotApi(channel_access_token)
-        line_bot_api.push_message(event.reply_token, TextSendMessage(text=message_to_reply))
-
+        line_bot_api.reply_message(event.reply_token, message_to_reply)
 
     def is_going_to_random(self, event):
         text = event.message.text
@@ -87,9 +81,9 @@ class TocMachine(GraphMachine):
     def on_enter_random(self, event):  # when enter state1
         print("I'm entering random")
         title = '滿意嗎？'
-        text="efefefesfsefesfsfsfsdfdsfsdfdsfdsf" \
-             "dfgsdfsdfsdfsdfsfdvflvfllvlv" \
-             "hjikiki,kmjmjmjmhmhjmjhmjhm"
+        text = "efefefesfsefesfsfsfsdfdsfsdfdsfdsf" \
+               "dfgsdfsdfsdfsdfsfdvflvfllvlv" \
+               "hjikiki,kmjmjmjmhmhjmjhmjhm"
         btn = [
             MessageTemplateAction(
                 label='謝了 這不錯',
@@ -102,8 +96,6 @@ class TocMachine(GraphMachine):
         ]
 
         send_button_message(event.reply_token, title, text, btn, url)
-
-
 
     def is_going_to_all(self, event):
         text = event.message.text
