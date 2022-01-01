@@ -135,6 +135,7 @@ class TocMachine(GraphMachine):
         return text.lower() == "謝了 這不錯 我要看細節"
 
     def on_enter_randomDetail(self, event):
+        rand=2
         yourMovie = 'name: ' + movie_dic_array[rand]['name'] + '\n'
         yourMovie += 'year: ' + movie_dic_array[rand]['year'] + '\n'
         yourMovie += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
