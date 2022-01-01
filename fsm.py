@@ -38,7 +38,7 @@ for store in movie_data:
     movie_dic['time'] = store.p.find('span', class_='runtime').text
     movie_dic['rating'] = store.find('div', class_='inline-block ratings-imdb-rating').text.replace('\n', '')
 
-    value= store.find_all('span', attrs={'name': 'nv'})[0]
+    value= store.find_all('span', attrs={'name': 'nv'})
     movie_dic['votes'] = value[0].text
     movie_dic['gross'] = value[1].text if len(value)>1 else 'No data'
     movie_dic['genre']=store.p.find('span', class_='genre').text
