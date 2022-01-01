@@ -41,6 +41,12 @@ machine = TocMachine(
             "dest": "fsm",
             "conditions": "is_going_to_fsm",
         },
+{
+            "trigger": "advance",
+            "source": "random",
+            "dest": "random",
+            "conditions": "is_going_to_random",
+        },
         {"trigger": "go_back",
          "source": ["menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",
                     "biography", "intro", "fsm"], "dest": "user"},

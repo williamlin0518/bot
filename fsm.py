@@ -26,43 +26,33 @@ class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
 
+    def is_going_to_user(self, event):
+        text = event.message.text
+        return text.lower() =="I don't have time" or text.lower() =="謝了 這不錯"   #
+
+
+
     def is_going_to_menu(self, event):
         text = event.message.text
-        return text.lower() == "想看電影了"  # user to state1
+        return text.lower() == "menu"  # user to state1
 
     def on_enter_menu(self, event):  # when enter state1
         print("I'm entering menu")
 
-        title = '喜歡哪種電影'
-        text = 'Crime? Romance? Adventure? Action? Biography? Fantasy?'
+        title = '要做什麼呢？'
+        text = '可幫你找電影、隨機推薦、看fsm圖'
         btn = [
             MessageTemplateAction(
-                label='All',
-                text='All'
+                label='想找電影',
+                text='想找電影'
             ),
             MessageTemplateAction(
-                label='Crime',
-                text='Crime'
+                label='隨機推薦',
+                text='隨機推薦'
             ),
             MessageTemplateAction(
-                label='Romance',
-                text='Romance'
-            ),
-            MessageTemplateAction(
-                label='Adventure',
-                text='Adventure'
-            ),
-            MessageTemplateAction(
-                label='Action',
-                text='Action'
-            ),
-            MessageTemplateAction(
-                label='Biography',
-                text='Biography'
-            ),
-            MessageTemplateAction(
-                label='Fantasy',
-                text='Fantasy'
+                label='看fsm圖',
+                text='看fsm圖'
             ),
             MessageTemplateAction(
                 label="I don't have time",
@@ -72,6 +62,11 @@ class TocMachine(GraphMachine):
         url = 'https://i.imgur.com/8Vvxj0S.jpg'
         send_button_message(event.reply_token, title, text, btn, url)
 
+    def is_going_to_whichKind(self, event):
+        text = event.message.text
+        return text.lower() == "想找電影"  #
+
+
     def is_going_to_random(self, event):
         text = event.message.text
         return text.lower() == "推薦隨機"  #
@@ -79,19 +74,23 @@ class TocMachine(GraphMachine):
     def on_enter_random(self, event):  # when enter state1
         print("I'm entering random")
         title = '滿意嗎？'
-        text=""
+        text="efefefesfsefesfsfsfsdfdsfsdfdsfdsf" \
+             "dfgsdfsdfsdfsdfsfdvflvfllvlv" \
+             "hjikiki,kmjmjmjmhmhjmjhmjhm"
         btn = [
             MessageTemplateAction(
                 label='謝了 這不錯',
                 text='謝了 這不錯'
             ),
             MessageTemplateAction(
-                label='再推薦隨機',
-                text='再推薦隨機'
+                label='推薦隨機',
+                text='推薦隨機'
             ),
         ]
+
         send_button_message(event.reply_token, title, text, btn, url)
-        send_button_message(event.reply_token, title, text, btn, url)
+
+
 
     def is_going_to_all(self, event):
         text = event.message.text
