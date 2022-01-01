@@ -3,6 +3,7 @@ import string
 import requests
 from transitions.extensions import GraphMachine
 
+import myMessage
 from utils import *
 from bs4 import BeautifulSoup
 
@@ -62,9 +63,17 @@ class TocMachine(GraphMachine):
         url = 'https://i.imgur.com/8Vvxj0S.jpg'
         send_button_message(event.reply_token, title, text, btn, url)
 
+
+
+
     def is_going_to_whichKind(self, event):
         text = event.message.text
         return text.lower() == "想找電影"  #
+    def on_enter_whichKind(self, event):  # when enter state1
+        message = myMessage.chooseTypes
+        message_to_reply = FlexSendMessage("選種類", message)
+        send_text_message(event.reply_token,message_to_reply)
+
 
 
     def is_going_to_random(self, event):

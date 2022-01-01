@@ -4,65 +4,216 @@ from linebot.models import *
 from utils import *
 # import pandas as pd
 import requests
-#from bs4 import BeautifulSoup
 
-location = ""
-url = 'https://www.imdb.com/search/title/?count=100&groups=top_1000&sort=user_rating'
-
-
+# from bs4 import BeautifulSoup
 # moviesDB = imdb.IMDb()
 # movies = moviesDB.search_movie('')
-def massage_handler(input, line_bot_api, event):
-    if '看電影' in input:
-        message = imagemap_message()
-        # send_text_message(event.reply_token, ["請點選你要去哪看", message])
-        line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="請點選你要去哪看"), message])
-
-    elif '功能' in input:
-
-        send_text_message(event.reply_token, "輸入 看電影\n"
-                                             "了解電影")
-    else:
-        message = TextSendMessage(text=input)
-        line_bot_api.reply_message(event.reply_token, message)
 
 
-# ImagemapSendMessage(組圖訊息)
-def imagemap_message():
-    message = ImagemapSendMessage(
-        base_url="https://i.imgur.com/8Vvxj0S.jpg",
-        alt_text='去哪看？',
-        base_size=BaseSize(height=1000, width=1000),
-        actions=[
-            URIImagemapAction(
-                # 台南國賓影城
-                link_uri="https://tw.shop.com/search/%E5%AE%B6%E6%A8%82%E7%A6%8F",
-                area=ImagemapArea(
-                    x=0, y=0, width=500, height=500
-                )
-            ),
-            URIImagemapAction(
-                # 台南南紡威秀影城
-                link_uri="https://tw.shop.com/search/%E7%94%9F%E6%B4%BB%E5%B8%82%E9%9B%86",
-                area=ImagemapArea(
-                    x=500, y=0, width=500, height=500
-                )
-            ),
-            URIImagemapAction(
-                # 台南FOCUS威秀影城
-                link_uri="https://tw.shop.com/search/%E9%98%BF%E7%98%A6%E7%9A%AE%E9%9E%8B",
-                area=ImagemapArea(
-                    x=0, y=500, width=500, height=500
-                )
-            ),
-            URIImagemapAction(
-                # 台南大遠百威秀影城
-                link_uri="https://tw.shop.com/search/%E5%A1%94%E5%90%89%E7%89%B9",
-                area=ImagemapArea(
-                    x=500, y=500, width=500, height=500
-                )
-            )
 
-        ]
-    )
-    return message
+chooseTypes = {
+    "type": "carousel",
+    "contents": [
+        {
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "url": "https://i.imgur.com/qyJCDS8.jpg",
+                "size": "full",
+                "aspectMode": "cover",
+                "aspectRatio": "1.25:2"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                            "type": "message",
+                            "label": "All",
+                            "text": "All"
+                        },
+                        "color": "#9620a4",
+                        "height": "md",
+                        "style": "primary",
+                        "offsetBottom": "md"
+                    }
+                ],
+                "spacing": "lg"
+            }
+        },
+        {
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "url": "https://i.imgur.com/XflSTSP.jpg",
+                "size": "full",
+                "aspectMode": "cover",
+                "aspectRatio": "1.25:2"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                            "type": "message",
+                            "label": "Crime",
+                            "text": "crime"
+                        },
+                        "height": "md",
+                        "color": "#c98938",
+                        "style": "primary",
+                        "offsetBottom": "md"
+                    }
+                ],
+                "spacing": "lg"
+            }
+        },
+        {
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "url": "https://i.imgur.com/SM9qBsm.jpg",
+                "size": "full",
+                "aspectMode": "cover",
+                "aspectRatio": "1.25:2",
+                "backgroundColor": "#d5a6bd"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                            "type": "message",
+                            "label": "Romance",
+                            "text": "romance"
+                        },
+                        "height": "md",
+                        "color": "#d5a6bd",
+                        "style": "primary",
+                        "offsetBottom": "md"
+                    }
+                ],
+                "spacing": "lg"
+            }
+        },
+        {
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "url": "https://i.imgur.com/DWdNRSU.jpg",
+                "size": "full",
+                "aspectMode": "cover",
+                "aspectRatio": "1.25:2"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                            "type": "message",
+                            "label": "Adventure",
+                            "text": "adventure"
+                        },
+                        "height": "md",
+                        "color": "#00b4b4",
+                        "style": "primary",
+                        "offsetBottom": "md"
+                    }
+                ],
+                "spacing": "lg"
+            }
+        },
+        {
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "url": "https://i.imgur.com/7Dz1JTm.jpg",
+                "aspectRatio": "1.25:2",
+                "size": "full",
+                "aspectMode": "cover"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                            "type": "message",
+                            "label": "Action",
+                            "text": "action"
+                        },
+                        "offsetBottom": "md",
+                        "color": "#541d8b",
+                        "height": "md",
+                        "style": "primary"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "url": "https://i.imgur.com/AEFInPK.jpg",
+                "size": "full",
+                "aspectRatio": "1.25:2",
+                "aspectMode": "cover"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                            "type": "message",
+                            "label": "Fantasy",
+                            "text": "fantasy"
+                        },
+                        "offsetBottom": "md",
+                        "style": "primary",
+                        "height": "md",
+                        "color": "#2f3c56"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "bubble",
+            "hero": {
+                "type": "image",
+                "url": "https://i.imgur.com/kQHDPql.jpg",
+                "size": "full",
+                "aspectRatio": "1.25:2",
+                "aspectMode": "fit"
+            },
+            "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                            "type": "message",
+                            "label": "Biography",
+                            "text": "biography"
+                        },
+                        "style": "primary",
+                        "height": "md",
+                        "offsetBottom": "md",
+                        "color": "#929fd1"
+                    }
+                ]
+            }
+        }
+    ]
+}
