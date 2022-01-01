@@ -31,7 +31,10 @@ for store in movie_data:
                  'rating': store.find('div', class_='inline-block ratings-imdb-rating').text.replace('\n', ''),
                  'votes': '', 'gross': '', 'genre': '', 'intro': '', 'img': ''}
     value = store.find_all('span', attrs={'name': 'nv'})
-    movie_dic['img'] = store.a.find('img', attrs='src').text
+
+    imageDiv=store.find('div',{'class':'lister-item-image float-left'})
+
+    movie_dic['img'] = imageDiv.find('div', 'loadlate').text
     movie_dic['votes'] = value[0].text
     movie_dic['gross'] = value[1].text if len(value) > 1 else 'No data'
     movie_dic['genre'] = store.p.find('span', class_='genre').text
