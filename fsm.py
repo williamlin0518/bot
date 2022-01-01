@@ -96,7 +96,7 @@ class TocMachine(GraphMachine):
 
     def is_going_to_random(self, event):
         text = event.message.text
-        return text.lower() == "推薦隨機"  #
+        return text.lower() == "隨機推薦"  #
 
     def on_enter_random(self, event):  # when enter state1
         print("I'm entering random")
