@@ -32,9 +32,10 @@ for store in movie_data:
                  'votes': '', 'gross': '', 'genre': '', 'intro': '', 'img': ''}
     value = store.find_all('span', attrs={'name': 'nv'})
 
-    imageDiv=store.find('div',{'class':'lister-item-image float-left'})
 
-    movie_dic['img'] = imageDiv.a.img[4].text
+    imageDiv=store.find('div',{'class':'lister-item-image float-left'})
+    movie_dic['img'] = imageDiv.a.find('img',class_='loadlate').src.text
+
     movie_dic['votes'] = value[0].text
     movie_dic['gross'] = value[1].text if len(value) > 1 else 'No data'
     movie_dic['genre'] = store.p.find('span', class_='genre').text
