@@ -14,27 +14,36 @@ from utils import send_text_message
 load_dotenv()
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",
+            "biography", "intro", "fsm"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "dest": "menu",
+            "conditions": "is_going_to_menu",
         },
         {
             "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "source": "menu",
+            "dest": "random",
+            "conditions": "is_going_to_random",
         },
         {
             "trigger": "advance",
-            "source": "state1",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "source": "menu",
+            "dest": "whichKind",
+            "conditions": "is_going_to_whichKind",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "advance",
+            "source": "menu",
+            "dest": "fsm",
+            "conditions": "is_going_to_fsm",
+        },
+        {"trigger": "go_back",
+         "source": ["menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",
+                    "biography", "intro", "fsm"], "dest": "user"},
     ],
     initial="user",
     auto_transitions=False,
@@ -83,8 +92,7 @@ def callback():
         # send_text_message(event.reply_token, "不懂你要幹嘛")
 
         if not response:
-           send_text_message(event.reply_token, "不懂你要幹嘛")
-
+            send_text_message(event.reply_token, "不懂你要幹嘛")
 
     return "OK"
 
