@@ -13,7 +13,6 @@ url = 'https://www.imdb.com/search/title/?count=100&groups=top_1000&sort=user_ra
 
 movie_dic_array = []
 
-
 movie_name = []
 year = []
 time = []
@@ -30,8 +29,9 @@ for store in movie_data:
                  'year': store.h3.find('span', class_='lister-item-year text-muted unbold').text,
                  'time': store.p.find('span', class_='runtime').text,
                  'rating': store.find('div', class_='inline-block ratings-imdb-rating').text.replace('\n', ''),
-                 'votes': '', 'gross': '', 'genre': '', 'intro': ''}
+                 'votes': '', 'gross': '', 'genre': '', 'intro': '', 'img': ''}
     value = store.find_all('span', attrs={'name': 'nv'})
+    movie_dic['img'] = store.a.find('img', attrs='src').text
     movie_dic['votes'] = value[0].text
     movie_dic['gross'] = value[1].text if len(value) > 1 else 'No data'
     movie_dic['genre'] = store.p.find('span', class_='genre').text
@@ -117,15 +117,11 @@ class TocMachine(GraphMachine):
         # push_message(event.reply_token,text)
         send_button_message(event.reply_token, title, text, btn, url)
 
-
-
-
     def is_going_to_randomDetail(self, event):
         text = event.message.text
         return text.lower() == "謝了 這不錯 我要看細節"
 
     def on_enter_randomDetail(self, event):
-        rand=2
         yourMovie = 'name: ' + movie_dic_array[rand]['name'] + '\n'
         yourMovie += 'year: ' + movie_dic_array[rand]['year'] + '\n'
         yourMovie += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
@@ -133,11 +129,9 @@ class TocMachine(GraphMachine):
         yourMovie += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
         yourMovie += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
         yourMovie += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
+        yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
         send_text_message(event.reply_token, yourMovie)
         self.go_back()
-
-
-
 
     def is_going_to_all(self, event):
         text = event.message.text
@@ -159,7 +153,6 @@ class TocMachine(GraphMachine):
             str += " \n"
 
         send_text_message(event.reply_token, str)
-
 
     def on_exit_state2(self):
         print("Leaving state2")
