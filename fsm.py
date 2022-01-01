@@ -1,6 +1,7 @@
 import string
 
 import requests
+import random
 from transitions.extensions import GraphMachine
 
 import myMessage
@@ -17,9 +18,9 @@ movie_dic = {
     'time': '',
     'rating': '',
     'votes': '',
-    'gross':'',
+    'gross': '',
 
-    'genre':'',
+    'genre': '',
     'intro': ''
 }
 
@@ -38,13 +39,12 @@ for store in movie_data:
     movie_dic['time'] = store.p.find('span', class_='runtime').text
     movie_dic['rating'] = store.find('div', class_='inline-block ratings-imdb-rating').text.replace('\n', '')
 
-    value= store.find_all('span', attrs={'name': 'nv'})
+    value = store.find_all('span', attrs={'name': 'nv'})
     movie_dic['votes'] = value[0].text
-    movie_dic['gross'] = value[1].text if len(value)>1 else 'No data'
-    movie_dic['genre']=store.p.find('span', class_='genre').text
-    movie_dic['intro']=store.find_all('p',{'class':'text-muted'})[1].text
+    movie_dic['gross'] = value[1].text if len(value) > 1 else 'No data'
+    movie_dic['genre'] = store.p.find('span', class_='genre').text
+    movie_dic['intro'] = store.find_all('p', {'class': 'text-muted'})[1].text
     movie_dic_array.append(movie_dic)
-
 
 
 class TocMachine(GraphMachine):
@@ -102,8 +102,16 @@ class TocMachine(GraphMachine):
         print("I'm entering random")
         title = '滿意嗎？'
 
-        text = movie_dic_array[0]['genre']
-        #text += movie_dic_array[0]['intro']
+        rand = random.randint(0, len(movie_dic_array))
+        text = 'name: ' + movie_dic_array[rand]['name'] + '\n'
+        text += 'year: ' + movie_dic_array[rand]['year'] + '\n'
+        text += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
+        text += 'time: ' + movie_dic_array[rand]['time'] + '\n'
+        text += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
+        text += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
+        text += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
+
+        # text += movie_dic_array[0]['intro']
 
         btn = [
             MessageTemplateAction(
@@ -111,8 +119,8 @@ class TocMachine(GraphMachine):
                 text='謝了 這不錯'
             ),
             MessageTemplateAction(
-                label='推薦隨機',
-                text='推薦隨機'
+                label='隨機推薦',
+                text='隨機推薦'
             ),
         ]
 
