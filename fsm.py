@@ -34,7 +34,7 @@ for store in movie_data:
 
 
     imageDiv=store.find('div',{'class':'lister-item-image float-left'})
-    movie_dic['img'] = imageDiv.a.img['src'].text
+    movie_dic['img'] = imageDiv.a.img['src']
 
     movie_dic['votes'] = value[0].text
     movie_dic['gross'] = value[1].text if len(value) > 1 else 'No data'
