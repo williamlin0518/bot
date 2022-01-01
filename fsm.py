@@ -103,7 +103,7 @@ class TocMachine(GraphMachine):
         title = '滿意嗎？'
 
         text = movie_dic_array[0]['genre']
-        text += movie_dic_array[0]['intro']
+        #text += movie_dic_array[0]['intro']
 
         btn = [
             MessageTemplateAction(
