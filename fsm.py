@@ -12,17 +12,7 @@ location = ""
 url = 'https://www.imdb.com/search/title/?count=100&groups=top_1000&sort=user_rating'
 
 movie_dic_array = []
-movie_dic = {
-    'name': '',
-    'year': '',
-    'time': '',
-    'rating': '',
-    'votes': '',
-    'gross': '',
 
-    'genre': '',
-    'intro': ''
-}
 
 movie_name = []
 year = []
@@ -36,11 +26,11 @@ soup = BeautifulSoup(response.content, 'html.parser')
 movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
 
 for store in movie_data:
-    movie_dic['name'] = store.h3.a.text
-    movie_dic['year'] = store.h3.find('span', class_='lister-item-year text-muted unbold').text
-    movie_dic['time'] = store.p.find('span', class_='runtime').text
-    movie_dic['rating'] = store.find('div', class_='inline-block ratings-imdb-rating').text.replace('\n', '')
-
+    movie_dic = {'name': store.h3.a.text,
+                 'year': store.h3.find('span', class_='lister-item-year text-muted unbold').text,
+                 'time': store.p.find('span', class_='runtime').text,
+                 'rating': store.find('div', class_='inline-block ratings-imdb-rating').text.replace('\n', ''),
+                 'votes': '', 'gross': '', 'genre': '', 'intro': ''}
     value = store.find_all('span', attrs={'name': 'nv'})
     movie_dic['votes'] = value[0].text
     movie_dic['gross'] = value[1].text if len(value) > 1 else 'No data'
