@@ -124,7 +124,8 @@ class TocMachine(GraphMachine):
             ),
         ]
 
-        send_button_message(event.reply_token, title, text, btn, url)
+        send_button_message(event.reply_token, title, '123', btn, url)
+        send_text_message(event.reply_token, text)
 
     def is_going_to_all(self, event):
         text = event.message.text
