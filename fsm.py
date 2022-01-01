@@ -36,7 +36,7 @@ soup = BeautifulSoup(response.content, 'html.parser')
 movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
 
 for store in movie_data:
-    movie_dic['movie_name'] = store.h3.a.text
+    movie_dic['name'] = store.h3.a.text
     movie_dic['year'] = store.h3.find('span', class_='lister-item-year text-muted unbold').text
     movie_dic['time'] = store.p.find('span', class_='runtime').text
     movie_dic['rating'] = store.find('div', class_='inline-block ratings-imdb-rating').text.replace('\n', '')
