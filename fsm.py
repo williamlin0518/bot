@@ -77,7 +77,7 @@ class TocMachine(GraphMachine):
 
 
         line_bot_api = LineBotApi(channel_access_token)
-        line_bot_api.push_message(event.reply_token, TextSendMessage(text=message))
+        line_bot_api.push_message(event.reply_token, TextSendMessage(text=message_to_reply))
 
 
     def is_going_to_random(self, event):
