@@ -29,6 +29,8 @@ year = []
 time = []
 rating = []
 
+rand = 0
+
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
@@ -103,29 +105,48 @@ class TocMachine(GraphMachine):
         title = '滿意嗎？'
 
         rand = random.randint(0, len(movie_dic_array))
-        text = 'name: ' + movie_dic_array[rand]['name'] + '\n'
-        text += 'year: ' + movie_dic_array[rand]['year'] + '\n'
-        text += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
-        text += 'time: ' + movie_dic_array[rand]['time'] + '\n'
-        text += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
-        text += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
-        text += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
+        text = 'name: ' + movie_dic_array[rand]['name'] + ' 這部怎樣?'
+        # text += 'year: ' + movie_dic_array[rand]['year'] + '\n'
+        # text += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
+        # text += 'time: ' + movie_dic_array[rand]['time'] + '\n'
+        # text += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
+        # text += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
+        # text += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
 
         # text += movie_dic_array[0]['intro']
-
         btn = [
             MessageTemplateAction(
-                label='謝了 這不錯',
-                text='謝了 這不錯'
+                label='謝了 這不錯 我要看細節',
+                text='謝了 這不錯 我要看細節'
             ),
             MessageTemplateAction(
-                label='隨機推薦',
+                label='再隨機推薦',
                 text='隨機推薦'
             ),
         ]
+        # push_message(event.reply_token,text)
+        send_button_message(event.reply_token, title, text, btn, url)
 
-        send_button_message(event.reply_token, title, '123', btn, url)
-        send_text_message(event.reply_token, text)
+
+
+
+    def is_going_to_randomDetail(self, event):
+        text = event.message.text
+        return text.lower() == "謝了 這不錯 我要看細節"
+
+    def on_enter_randomDetail(self, event):
+        yourMovie = 'name: ' + movie_dic_array[rand]['name'] + '\n'
+        yourMovie += 'year: ' + movie_dic_array[rand]['year'] + '\n'
+        yourMovie += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
+        yourMovie += 'time: ' + movie_dic_array[rand]['time'] + '\n'
+        yourMovie += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
+        yourMovie += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
+        yourMovie += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
+        send_text_message(event.reply_token, yourMovie)
+        self.go_back()
+
+
+
 
     def is_going_to_all(self, event):
         text = event.message.text
@@ -148,7 +169,6 @@ class TocMachine(GraphMachine):
 
         send_text_message(event.reply_token, str)
 
-        self.go_back()
 
     def on_exit_state2(self):
         print("Leaving state2")

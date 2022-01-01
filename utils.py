@@ -15,6 +15,10 @@ def send_text_message(reply_token, text):
 
     return "OK"
 
+# def push_message(reply_token, msg):
+#     line_bot_api = LineBotApi(channel_access_token)
+#     line_bot_api.push_message(reply_token, TextSendMessage(text=msg))
+#     return "OK"
 
 def send_button_message(reply_token, title, text, btn, url):
     line_bot_api = LineBotApi(channel_access_token)
