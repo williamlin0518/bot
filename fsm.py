@@ -99,6 +99,7 @@ class TocMachine(GraphMachine):
         title = '滿意嗎？'
 
         rand = random.randint(0, len(movie_dic_array))
+        url=movie_dic_array[rand]['img']
         text = 'name: ' + movie_dic_array[rand]['name'] + ' 這部怎樣?'
         # text += 'year: ' + movie_dic_array[rand]['year'] + '\n'
         # text += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
@@ -133,7 +134,7 @@ class TocMachine(GraphMachine):
         yourMovie += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
         yourMovie += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
         yourMovie += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
-        yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
+        #yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
         send_text_message(event.reply_token, yourMovie)
         self.go_back()
 
