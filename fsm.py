@@ -69,11 +69,15 @@ class TocMachine(GraphMachine):
     def is_going_to_whichKind(self, event):
         text = event.message.text
         return text.lower() == "想找電影"  #
-    def on_enter_whichKind(self, event):  # when enter state1
+    def on_enter_whichKind(self, event):  # when enter whichKind
+        print("in whichKind")
         message = myMessage.chooseTypes
-        message_to_reply = FlexSendMessage("選種類", message)
-        send_text_message(event.reply_token,message_to_reply)
 
+        message_to_reply = FlexSendMessage("選種類", message)
+
+
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.push_message(event.reply_token, TextSendMessage(text=message))
 
 
     def is_going_to_random(self, event):
