@@ -13,27 +13,47 @@ url = 'https://www.imdb.com/search/title/?count=100&groups=top_1000&sort=user_ra
 movie_dic_array = []
 movie_dic = {
     'name': '',
-    'year': 0,
-    'time': 0,
-    'rating': 0,
-    'metascore': 0,
-    'votes': 0,
-    'gross': '',
+    'year': '',
+    'time': '',
+    'rating': '',
+    'votes': '',
+    'gross':'',
+
+    'genre':'',
     'intro': ''
 }
+
+movie_name = []
+year = []
+time = []
+rating = []
+
+response = requests.get(url)
+soup = BeautifulSoup(response.content, 'html.parser')
+movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
+
+for store in movie_data:
+    movie_dic['movie_name'] = store.h3.a.text
+    movie_dic['year'] = store.h3.find('span', class_='lister-item-year text-muted unbold').text
+    movie_dic['time'] = store.p.find('span', class_='runtime').text
+    movie_dic['rating'] = store.find('div', class_='inline-block ratings-imdb-rating').text.replace('\n', '')
+
+    value= store.find_all('span', attrs={'name': 'nv'})[0].text
+    movie_dic['votes'] = value[0].text
+    movie_dic['gross'] = value[1].text if len(value)>1 else 'No data'
+    movie_dic['genre']=store.p.find('span', class_='genre').text
+    movie_dic['intro']=store.find_all('p',{'class':'text-muted'})[1].text
+    movie_dic_array.append(movie_dic)
+
 
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
 
-    def is_going_to_user(self, event):
-        text = event.message.text
-        return text.lower() == "I don't have time" or text.lower() == "謝了 這不錯"  #
-
     def is_going_to_menu(self, event):
         text = event.message.text
-        return text.lower() == "menu"  # user to state1
+        return text.lower() == "menu" or "I don't have time" or text.lower() == "謝了 這不錯"  # user to state1
 
     def on_enter_menu(self, event):  # when enter state1
         print("I'm entering menu")
@@ -81,9 +101,10 @@ class TocMachine(GraphMachine):
     def on_enter_random(self, event):  # when enter state1
         print("I'm entering random")
         title = '滿意嗎？'
-        text = "efefefesfsefesfsfsfsdfdsfsdfdsfdsf" \
-               "dfgsdfsdfsdfsdfsfdvflvfllvlv" \
-               "hjikiki,kmjmjmjmhmhjmjhmjhm"
+
+        text = movie_dic_array[0]['genre']
+        text += movie_dic_array[0]['intro']
+
         btn = [
             MessageTemplateAction(
                 label='謝了 這不錯',
@@ -102,26 +123,13 @@ class TocMachine(GraphMachine):
         return text.lower() == "科幻"
 
     def on_enter_all(self, event):
-        print("I'm entering all")
-        response = requests.get(url)
-        movie_name = []
-        year = []
-        time = []
-        rating = []
-        metascore = []
-        votes = []
-        gross = []
-        char_number = 0
         str = ""
-        soup = BeautifulSoup(response.content, 'html.parser')
-        movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
+        print("I'm entering all")
 
         for store in movie_data:
             name = store.h3.a.text
             runtime = store.p.find('span', class_='runtime').text
-            char_number += len(name)
-            # if char_number > 100:
-            #     break
+
             str += name
             str += " "
             str += store.h3.find('span', class_='lister-item-year text-muted unbold')

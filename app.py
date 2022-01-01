@@ -41,12 +41,61 @@ machine = TocMachine(
             "dest": "fsm",
             "conditions": "is_going_to_fsm",
         },
-{
+        {
             "trigger": "advance",
             "source": "random",
             "dest": "random",
             "conditions": "is_going_to_random",
         },
+        {
+            "trigger": "advance",
+            "source": "whichKind",
+            "dest": "all",
+            "conditions": "is_going_to_all",
+        },
+        {
+            "trigger": "advance",
+            "source": "whichKind",
+            "dest": "crime",
+            "conditions": "is_going_to_crime",
+        },
+        {
+            "trigger": "advance",
+            "source": "whichKind",
+            "dest": "romance",
+            "conditions": "is_going_to_romance",
+        },
+        {
+            "trigger": "advance",
+            "source": "whichKind",
+            "dest": "adventure",
+            "conditions": "is_going_to_adventure",
+        },
+        {
+            "trigger": "advance",
+            "source": "whichKind",
+            "dest": "action",
+            "conditions": "is_going_to_action",
+        },
+        {
+            "trigger": "advance",
+            "source": "whichKind",
+            "dest": "fantasy",
+            "conditions": "is_going_to_fantasy",
+        },
+        {
+            "trigger": "advance",
+            "source": "whichKind",
+            "dest": "biography",
+            "conditions": "is_going_to_biography",
+        },
+        {
+            "trigger": "advance",
+            "source": "random",
+            "dest": "menu",
+            "conditions": "is_going_to_menu",
+        },
+
         {"trigger": "go_back",
          "source": ["menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",
                     "biography", "intro", "fsm"], "dest": "user"},
