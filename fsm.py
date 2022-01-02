@@ -100,8 +100,9 @@ class TocMachine(GraphMachine):
         print("I'm entering random")
         title = '滿意嗎？'
 
+        global rand
         rand = random.randint(0, len(movie_dic_array))
-        url=movie_dic_array[rand]['img']
+        my_url=movie_dic_array[rand]['img']
         text = 'name: ' + movie_dic_array[rand]['name'] + ' 這部怎樣?'
         # text += 'year: ' + movie_dic_array[rand]['year'] + '\n'
         # text += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
@@ -122,7 +123,7 @@ class TocMachine(GraphMachine):
             ),
         ]
         # push_message(event.reply_token,text)
-        send_button_message(event.reply_token, title, text, btn, url)
+        send_button_message(event.reply_token, title, text, btn, my_url)
 
     def is_going_to_randomDetail(self, event):
         text = event.message.text
