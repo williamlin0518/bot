@@ -49,7 +49,7 @@ class TocMachine(GraphMachine):
 
     def is_going_to_menu(self, event):
         text = event.message.text
-        return text.lower() == "menu" or "I don't have time" or text.lower() == "謝了 這不錯"  # user to state1
+        return text.lower() == "menu" # user to state1
 
     def on_enter_menu(self, event):  # when enter state1
         print("I'm entering menu")
