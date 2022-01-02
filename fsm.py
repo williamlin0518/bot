@@ -196,6 +196,7 @@ class TocMachine(GraphMachine):
         search_str = text
         for movie in movie_dic_array:
             if types in movie['genre']:
+                print('...................lll')
                 if movie['name'].lower() == text.lower():
                     return True
         # return text.lower() in search_str.lower()
