@@ -138,7 +138,7 @@ class TocMachine(GraphMachine):
         yourMovie += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
         yourMovie += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
         yourMovie += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
-        #yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
+        yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
         send_text_message(event.reply_token, yourMovie)
         self.go_back()
 
