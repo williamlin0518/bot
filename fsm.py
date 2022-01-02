@@ -179,7 +179,7 @@ class TocMachine(GraphMachine):
     def on_enter_romance(self, event):
         global search_str
         search_str = ""
-        print("I'm entering all")
+        print("I'm entering romance")
 
         for movie in movie_dic_array:
             if 'romance' in movie['genre']:
@@ -189,16 +189,33 @@ class TocMachine(GraphMachine):
         search_str += '----請輸入一個你想看的----'
         send_text_message(event.reply_token, search_str)
 
+    def is_going_to_fantasy(self, event):
+        text = event.message.text
+        return text.lower() == "fantasy"
+
+    def on_enter_fantasy(self, event):
+        global search_str
+        search_str = ""
+        print("I'm entering fantasy")
+
+        for movie in movie_dic_array:
+            if 'fantasy' in movie['genre']:
+                search_str += movie['name'] + "\n"
+        global types
+        types = 'fantasy'
+        search_str += '----請輸入一個你想看的----'
+        send_text_message(event.reply_token, search_str)
+
+
+
     def is_going_to_intro(self, event):
         text = event.message.text
 
         global search_str
         search_str = text
         for movie in movie_dic_array:
-            if types in movie['genre']:
-                print('...................lll')
-                if movie['name'].lower() == text.lower():
-                    return True
+            if movie['name'].lower() == text.lower():
+                return True
         # return text.lower() in search_str.lower()
 
     def on_enter_intro(self, event):
