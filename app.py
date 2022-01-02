@@ -202,7 +202,9 @@ def callback():
         # send_text_message(event.reply_token, "不懂你要幹嘛")
 
         if not response:
-            if machine.states == 'crime':
+            if machine.state == 'crime':
+                send_text_message(event.reply_token, '請認真輸入')
+            elif machine.states == 'all':
                 send_text_message(event.reply_token, '請認真輸入')
             else:
                 send_text_message(event.reply_token, "不懂你要幹嘛")
