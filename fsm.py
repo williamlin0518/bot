@@ -4,8 +4,6 @@ import requests
 import random
 from transitions.extensions import GraphMachine
 
-
-
 import myMessage
 from utils import *
 from bs4 import BeautifulSoup
@@ -20,9 +18,8 @@ year = []
 time = []
 rating = []
 
-
-rand=0
-types=''
+rand = 0
+types = ''
 
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
@@ -36,8 +33,7 @@ for store in movie_data:
                  'votes': '', 'gross': '', 'genre': '', 'intro': '', 'img': ''}
     value = store.find_all('span', attrs={'name': 'nv'})
 
-
-    imageDiv=store.find('div',{'class':'lister-item-image float-left'})
+    imageDiv = store.find('div', {'class': 'lister-item-image float-left'})
     movie_dic['img'] = imageDiv.a.img['src']
 
     movie_dic['votes'] = value[0].text
@@ -104,7 +100,7 @@ class TocMachine(GraphMachine):
 
         global rand
         rand = random.randint(0, len(movie_dic_array))
-        my_url=movie_dic_array[rand]['img']
+        my_url = movie_dic_array[rand]['img']
         text = 'name: ' + movie_dic_array[rand]['name'] + ' 這部怎樣?'
         # text += 'year: ' + movie_dic_array[rand]['year'] + '\n'
         # text += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
@@ -131,7 +127,6 @@ class TocMachine(GraphMachine):
         return text.lower() == "謝了 這不錯 我要看細節"
 
     def on_enter_randomDetail(self, event):
-
         yourMovie = 'name: ' + movie_dic_array[rand]['name'] + '\n'
         yourMovie += 'year: ' + movie_dic_array[rand]['year'] + '\n'
         yourMovie += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
@@ -144,26 +139,22 @@ class TocMachine(GraphMachine):
         send_text_message(event.reply_token, yourMovie)
         self.go_back()
 
+
+
     def is_going_to_all(self, event):
         text = event.message.text
-        return text.lower() == "科幻"
-
+        return text.lower() == "all"
     def on_enter_all(self, event):
         str = ""
         print("I'm entering all")
 
-        for store in movie_data:
-            name = store.h3.a.text
-            runtime = store.p.find('span', class_='runtime').text
-
-            str += name
-            str += " "
-            str += store.h3.find('span', class_='lister-item-year text-muted unbold')
-            str += runtime
-
-            str += " \n"
+        for movie in movie_dic_array:
+            str += movie['name'] + "\n"
 
         send_text_message(event.reply_token, str)
 
-    def on_exit_state2(self):
-        print("Leaving state2")
+
+
+    def on_exit_on_enter_randomDetail(self):
+        print("Leaving randomDetail")
+
