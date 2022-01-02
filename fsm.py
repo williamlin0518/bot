@@ -22,6 +22,8 @@ rating = []
 
 
 rand=0
+types=''
+
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
@@ -110,7 +112,6 @@ class TocMachine(GraphMachine):
         # text += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
         # text += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
         # text += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
-
         # text += movie_dic_array[0]['intro']
         btn = [
             MessageTemplateAction(
@@ -139,6 +140,7 @@ class TocMachine(GraphMachine):
         yourMovie += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
         yourMovie += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
         yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
+        yourMovie += movie_dic_array[rand]['intro']
         send_text_message(event.reply_token, yourMovie)
         self.go_back()
 

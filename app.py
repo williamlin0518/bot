@@ -101,6 +101,12 @@ machine = TocMachine(
             "dest": "randomDetail",
             "conditions": "is_going_to_randomDetail",
         },
+        {
+            "trigger": "advance",
+            "source": "crime",
+            "dest": "intro",
+            "conditions": "is_going_to_intro",
+        },
 
         {"trigger": "go_back",
          "source": ["menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",
