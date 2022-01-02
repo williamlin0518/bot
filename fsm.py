@@ -67,7 +67,7 @@ class TocMachine(GraphMachine):
             ),
             MessageTemplateAction(
                 label='看fsm圖',
-                text='看fsm圖'
+                text='fsm'
             ),
             MessageTemplateAction(
                 label="I don't have time",
@@ -101,7 +101,7 @@ class TocMachine(GraphMachine):
         global rand
         rand = random.randint(0, len(movie_dic_array))
         my_url = movie_dic_array[rand]['img']
-        text = 'name: ' + movie_dic_array[rand]['name'] + ' 這部怎樣?'
+        text = movie_dic_array[rand]['name'] + '  這部怎樣?'
         # text += 'year: ' + movie_dic_array[rand]['year'] + '\n'
         # text += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
         # text += 'time: ' + movie_dic_array[rand]['time'] + '\n'
@@ -282,4 +282,14 @@ class TocMachine(GraphMachine):
                 send_text_message(event.reply_token, search_movie)
                 break
         # send_text_message(event.reply_token, search_movie)
+        self.go_back()
+
+    def is_going_to_fsm(self, event):
+        text = event.message.text
+
+        return text.lower() == "fsm"
+
+    def on_enter_fsm(self, event):
+
+        send_image_message(event.reply_token,'https://raw.githubusercontent.com/williamlin0518/bot/master/fsm.png' )
         self.go_back()
