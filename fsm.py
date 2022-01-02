@@ -196,6 +196,7 @@ class TocMachine(GraphMachine):
         return text.lower() in search_str.lower()
 
     def on_enter_intro(self, event):
+        print("intro=========================")
         for movie in movie_dic_array:
             if movie['name'].lower() == search_name.lower():
                 search_movie = 'name: ' + movie['name'] + '\n'
