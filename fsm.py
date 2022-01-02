@@ -4,8 +4,8 @@ import requests
 import random
 from transitions.extensions import GraphMachine
 
-import app
-import fsm
+
+
 import myMessage
 from utils import *
 from bs4 import BeautifulSoup
@@ -21,7 +21,7 @@ time = []
 rating = []
 
 
-
+rand=0
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
@@ -100,9 +100,9 @@ class TocMachine(GraphMachine):
         print("I'm entering random")
         title = '滿意嗎？'
 
-        app.rand = random.randint(0, len(movie_dic_array))
-        url=movie_dic_array[app.rand]['img']
-        text = 'name: ' + movie_dic_array[app.rand]['name'] + ' 這部怎樣?'
+        rand = random.randint(0, len(movie_dic_array))
+        url=movie_dic_array[rand]['img']
+        text = 'name: ' + movie_dic_array[rand]['name'] + ' 這部怎樣?'
         # text += 'year: ' + movie_dic_array[rand]['year'] + '\n'
         # text += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
         # text += 'time: ' + movie_dic_array[rand]['time'] + '\n'
@@ -130,13 +130,13 @@ class TocMachine(GraphMachine):
 
     def on_enter_randomDetail(self, event):
 
-        yourMovie = 'name: ' + movie_dic_array[app.rand]['name'] + '\n'
-        yourMovie += 'year: ' + movie_dic_array[app.rand]['year'] + '\n'
-        yourMovie += 'genre: ' + movie_dic_array[app.rand]['rating'] + '\n'
-        yourMovie += 'time: ' + movie_dic_array[app.rand]['time'] + '\n'
-        yourMovie += 'rating: ' + movie_dic_array[app.rand]['rating'] + '\n'
-        yourMovie += 'votes: ' + movie_dic_array[app.rand]['votes'] + '\n'
-        yourMovie += 'gross: ' + movie_dic_array[app.rand]['gross'] + '\n'
+        yourMovie = 'name: ' + movie_dic_array[rand]['name'] + '\n'
+        yourMovie += 'year: ' + movie_dic_array[rand]['year'] + '\n'
+        yourMovie += 'genre: ' + movie_dic_array[rand]['rating'] + '\n'
+        yourMovie += 'time: ' + movie_dic_array[rand]['time'] + '\n'
+        yourMovie += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
+        yourMovie += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
+        yourMovie += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
         #yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
         send_text_message(event.reply_token, yourMovie)
         self.go_back()
