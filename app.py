@@ -144,12 +144,6 @@ machine = TocMachine(
             "dest": "intro",
             "conditions": "is_going_to_intro",
         },
-        {
-            "trigger": "advance",
-            "source": "crime",
-            "dest": "whichKind",
-            "conditions": "is_going_to_intro",
-        },
 
         {"trigger": "go_back",
          "source": ["menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",
@@ -202,12 +196,23 @@ def callback():
         # send_text_message(event.reply_token, "不懂你要幹嘛")
 
         if not response:
-            if machine.state == 'crime':
+            if machine.state == 'all':
                 send_text_message(event.reply_token, '請認真輸入')
-            elif machine.states == 'all':
+            elif machine.state == 'crime':
                 send_text_message(event.reply_token, '請認真輸入')
+            elif machine.state == 'fantasy':
+                send_text_message(event.reply_token, '請認真輸入')
+            elif machine.state == 'action':
+                send_text_message(event.reply_token, '請認真輸入')
+            elif machine.state == 'biography':
+                send_text_message(event.reply_token, '請認真輸入')
+            elif machine.state == 'adventure':
+                send_text_message(event.reply_token, '請認真輸入')
+            elif machine.state == 'romance':
+                send_text_message(event.reply_token, '請認真輸入')
+
             else:
-                send_text_message(event.reply_token, "不懂你要幹嘛")
+                send_text_message(event.reply_token, "輸入menu開始你的操作")
 
     return "OK"
 

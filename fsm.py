@@ -162,7 +162,7 @@ class TocMachine(GraphMachine):
     def on_enter_crime(self, event):
         global search_str
         search_str = ""
-        print("I'm entering all")
+        print("I'm entering crime")
 
         for movie in movie_dic_array:
             if 'crime' in movie['genre'].lower():
@@ -206,7 +206,56 @@ class TocMachine(GraphMachine):
         search_str += '----請輸入一個你想看的----'
         send_text_message(event.reply_token, search_str)
 
+    def is_going_to_biography(self, event):
+        text = event.message.text
+        return text.lower() == "biography"
 
+    def on_enter_biography(self, event):
+        global search_str
+        search_str = ""
+        print("I'm entering biography")
+
+        for movie in movie_dic_array:
+            if 'biography' in movie['genre']:
+                search_str += movie['name'] + "\n"
+        global types
+        types = 'biography'
+        search_str += '----請輸入一個你想看的----'
+        send_text_message(event.reply_token, search_str)
+
+    def is_going_to_action(self, event):
+        text = event.message.text
+        return text.lower() == "action"
+
+    def on_enter_action(self, event):
+        global search_str
+        search_str = ""
+        print("I'm entering action")
+
+        for movie in movie_dic_array:
+            if 'action' in movie['genre']:
+                search_str += movie['name'] + "\n"
+        global types
+        types = 'action'
+        search_str += '----請輸入一個你想看的----'
+        send_text_message(event.reply_token, search_str)
+
+    def is_going_to_adventure(self, event):
+        text = event.message.text
+        return text.lower() == "adventure"
+
+    def on_enter_adventure(self, event):
+        global search_str
+        search_str = ""
+        print("I'm entering adventure")
+
+        for movie in movie_dic_array:
+            if 'adventure' in movie['genre']:
+                search_str += movie['name'] + "\n"
+        global types
+        types = 'adventure'
+        search_str += '----請輸入一個你想看的----'
+        send_text_message(event.reply_token, search_str)
 
     def is_going_to_intro(self, event):
         text = event.message.text
@@ -232,5 +281,5 @@ class TocMachine(GraphMachine):
                 search_movie += movie['intro']
                 send_text_message(event.reply_token, search_movie)
                 break
-        #send_text_message(event.reply_token, search_movie)
+        # send_text_message(event.reply_token, search_movie)
         self.go_back()
