@@ -34,7 +34,7 @@ for store in movie_data:
     value = store.find_all('span', attrs={'name': 'nv'})
 
     imageDiv = store.find('div', {'class': 'lister-item-image float-left'})
-    movie_dic['img'] = imageDiv.a.img['src']
+    movie_dic['img'] = img = imageDiv.a.img('loadlate')
 
     movie_dic['votes'] = value[0].text
     movie_dic['gross'] = value[1].text if len(value) > 1 else 'No data'
@@ -134,27 +134,42 @@ class TocMachine(GraphMachine):
         yourMovie += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
         yourMovie += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
         yourMovie += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
-        yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
+        #yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
         yourMovie += movie_dic_array[rand]['intro']
+
         send_text_message(event.reply_token, yourMovie)
         self.go_back()
-
-
 
     def is_going_to_all(self, event):
         text = event.message.text
         return text.lower() == "all"
+
     def on_enter_all(self, event):
         str = ""
         print("I'm entering all")
 
         for movie in movie_dic_array:
             str += movie['name'] + "\n"
-
+        global types
+        types=''
+        str += '----請輸入一個你想看的----'
         send_text_message(event.reply_token, str)
 
 
+    def is_going_to_crime(self, event):
+        text = event.message.text
+        return text.lower() == "crime"
+
+    def on_enter_crime(self, event):
+        str = ""
+        print("I'm entering all")
+
+        for movie in movie_dic_array:
+            str += movie['name'] + "\n"
+        global types
+        types='crime'
+        str += '----請輸入一個你想看的----'
+        send_text_message(event.reply_token, str)
 
     def on_exit_on_enter_randomDetail(self):
         print("Leaving randomDetail")
-
