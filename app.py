@@ -103,7 +103,43 @@ machine = TocMachine(
         },
         {
             "trigger": "advance",
+            "source": "all",
+            "dest": "intro",
+            "conditions": "is_going_to_intro",
+        },
+{
+            "trigger": "advance",
             "source": "crime",
+            "dest": "intro",
+            "conditions": "is_going_to_intro",
+        },
+        {
+            "trigger": "advance",
+            "source": "romance",
+            "dest": "intro",
+            "conditions": "is_going_to_intro",
+        },
+        {
+            "trigger": "advance",
+            "source": "adventure",
+            "dest": "intro",
+            "conditions": "is_going_to_intro",
+        },
+        {
+            "trigger": "advance",
+            "source": "action",
+            "dest": "intro",
+            "conditions": "is_going_to_intro",
+        },
+        {
+            "trigger": "advance",
+            "source": "fantasy",
+            "dest": "intro",
+            "conditions": "is_going_to_intro",
+        },
+        {
+            "trigger": "advance",
+            "source": "biography",
             "dest": "intro",
             "conditions": "is_going_to_intro",
         },

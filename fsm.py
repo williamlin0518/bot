@@ -134,7 +134,7 @@ class TocMachine(GraphMachine):
         yourMovie += 'rating: ' + movie_dic_array[rand]['rating'] + '\n'
         yourMovie += 'votes: ' + movie_dic_array[rand]['votes'] + '\n'
         yourMovie += 'gross: ' + movie_dic_array[rand]['gross'] + '\n'
-        #yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
+        # yourMovie += 'img: ' + movie_dic_array[rand]['img'] + '\n'
         yourMovie += movie_dic_array[rand]['intro']
 
         send_text_message(event.reply_token, yourMovie)
@@ -151,10 +151,9 @@ class TocMachine(GraphMachine):
         for movie in movie_dic_array:
             str += movie['name'] + "\n"
         global types
-        types=''
+        types = ''
         str += '----請輸入一個你想看的----'
         send_text_message(event.reply_token, str)
-
 
     def is_going_to_crime(self, event):
         text = event.message.text
@@ -165,9 +164,10 @@ class TocMachine(GraphMachine):
         print("I'm entering all")
 
         for movie in movie_dic_array:
-            str += movie['name'] + "\n"
+            if 'crime' in movie['genre']:
+                str += movie['name'] + "\n"
         global types
-        types='crime'
+        types = 'crime'
         str += '----請輸入一個你想看的----'
         send_text_message(event.reply_token, str)
 
