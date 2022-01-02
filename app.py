@@ -210,6 +210,8 @@ def callback():
                 send_text_message(event.reply_token, '請認真輸入')
             elif machine.state == 'romance':
                 send_text_message(event.reply_token, '請認真輸入')
+            elif machine.state == 'menu':
+                send_text_message(event.reply_token, '那88\n輸入menu開始你的操作')
 
             else:
                 send_text_message(event.reply_token, "輸入menu開始你的操作")
