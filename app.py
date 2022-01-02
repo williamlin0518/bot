@@ -12,7 +12,7 @@ from fsm import TocMachine
 from utils import send_text_message
 
 load_dotenv()
-
+rand=0
 machine = TocMachine(
     states=["user", "menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",
             "biography", "intro", "fsm", 'randomDetail'],
