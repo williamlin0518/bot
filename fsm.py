@@ -13,14 +13,14 @@ url = 'https://www.imdb.com/search/title/?count=100&groups=top_1000&sort=user_ra
 
 movie_dic_array = []
 
-movie_name = []
 year = []
 time = []
 rating = []
 
 rand = 0
 types = ''
-
+search_str = ''
+search_name = ''
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
@@ -160,35 +160,52 @@ class TocMachine(GraphMachine):
         return text.lower() == "crime"
 
     def on_enter_crime(self, event):
-        str = ""
+        global search_str
+        search_str = ""
         print("I'm entering all")
 
         for movie in movie_dic_array:
             if 'crime' in movie['genre'].lower():
-                str += movie['name'] + "\n"
+                search_str += movie['name'] + "\n"
         global types
         types = 'crime'
-        str += '----請輸入一個你想看的----'
-        send_text_message(event.reply_token, str)
-
+        search_str += '----請輸入一個你想看的----'
+        send_text_message(event.reply_token, search_str)
 
     def is_going_to_romance(self, event):
         text = event.message.text
         return text.lower() == "romance"
 
     def on_enter_romance(self, event):
-        str = ""
+        global search_str
+        search_str = ""
         print("I'm entering all")
 
         for movie in movie_dic_array:
             if 'romance' in movie['genre']:
-                str += movie['name'] + "\n"
+                search_str += movie['name'] + "\n"
         global types
         types = 'romance'
-        str += '----請輸入一個你想看的----'
-        send_text_message(event.reply_token, str)
+        search_str += '----請輸入一個你想看的----'
+        send_text_message(event.reply_token, search_str)
 
+    def is_going_to_intro(self, event):
+        text = event.message.text
 
+        global search_str
+        return text.lower() in search_str.lower()
 
-
-
+    def on_enter_intro(self, event):
+        for movie in movie_dic_array:
+            if movie['name'].lower() == search_name.lower():
+                search_movie = 'name: ' + movie['name'] + '\n'
+                search_movie += 'year: ' + movie['year'] + '\n'
+                search_movie += 'genre: ' + movie['rating'] + '\n'
+                search_movie += 'time: ' + movie['time'] + '\n'
+                search_movie += 'rating: ' + movie['rating'] + '\n'
+                search_movie += 'votes: ' + movie['votes'] + '\n'
+                search_movie += 'gross: ' + movie['gross'] + '\n'
+                search_movie += movie['intro']
+                break
+        send_text_message(event.reply_token, search_movie)
+        self.go_back()

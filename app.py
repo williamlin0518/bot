@@ -10,7 +10,8 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from myMessage import *
 from fsm import TocMachine
 from utils import send_text_message
-rand=0
+
+rand = 0
 load_dotenv()
 
 machine = TocMachine(
@@ -107,7 +108,7 @@ machine = TocMachine(
             "dest": "intro",
             "conditions": "is_going_to_intro",
         },
-{
+        {
             "trigger": "advance",
             "source": "crime",
             "dest": "intro",
@@ -141,6 +142,12 @@ machine = TocMachine(
             "trigger": "advance",
             "source": "biography",
             "dest": "intro",
+            "conditions": "is_going_to_intro",
+        },
+        {
+            "trigger": "advance",
+            "source": "crime",
+            "dest": "whichKind",
             "conditions": "is_going_to_intro",
         },
 
@@ -195,7 +202,10 @@ def callback():
         # send_text_message(event.reply_token, "不懂你要幹嘛")
 
         if not response:
-            send_text_message(event.reply_token, "不懂你要幹嘛")
+            if machine.states == 'crime':
+                send_text_message(event.reply_token, '請認真輸入')
+            else:
+                send_text_message(event.reply_token, "不懂你要幹嘛")
 
     return "OK"
 
