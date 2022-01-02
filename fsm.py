@@ -20,7 +20,7 @@ rating = []
 rand = 0
 types = ''
 search_str = ''
-search_name = ''
+
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 movie_data = soup.findAll('div', attrs={'class': 'lister-item mode-advanced'})
@@ -193,12 +193,17 @@ class TocMachine(GraphMachine):
         text = event.message.text
 
         global search_str
-        return text.lower() in search_str.lower()
+        search_str = text
+        for movie in movie_dic_array:
+            if types in movie['genre']:
+                if movie['name'].lower() == text.lower():
+                    return True
+        # return text.lower() in search_str.lower()
 
     def on_enter_intro(self, event):
         print("intro=========================")
         for movie in movie_dic_array:
-            if movie['name'].lower() == search_name.lower():
+            if movie['name'].lower() == search_str.lower():
                 search_movie = 'name: ' + movie['name'] + '\n'
                 search_movie += 'year: ' + movie['year'] + '\n'
                 search_movie += 'genre: ' + movie['rating'] + '\n'
@@ -207,6 +212,7 @@ class TocMachine(GraphMachine):
                 search_movie += 'votes: ' + movie['votes'] + '\n'
                 search_movie += 'gross: ' + movie['gross'] + '\n'
                 search_movie += movie['intro']
+                send_text_message(event.reply_token, search_movie)
                 break
-        send_text_message(event.reply_token, search_movie)
+        #send_text_message(event.reply_token, search_movie)
         self.go_back()
