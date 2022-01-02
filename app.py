@@ -10,7 +10,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from myMessage import *
 from fsm import TocMachine
 from utils import send_text_message
-
+rand=0
 load_dotenv()
 
 machine = TocMachine(
