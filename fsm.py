@@ -182,7 +182,7 @@ class TocMachine(GraphMachine):
         print("I'm entering romance")
 
         for movie in movie_dic_array:
-            if 'romance' in movie['genre']:
+            if 'romance' in movie['genre'].lower():
                 search_str += movie['name'] + "\n"
         global types
         types = 'romance'
@@ -199,7 +199,7 @@ class TocMachine(GraphMachine):
         print("I'm entering fantasy")
 
         for movie in movie_dic_array:
-            if 'fantasy' in movie['genre']:
+            if 'fantasy' in movie['genre'].lower():
                 search_str += movie['name'] + "\n"
         global types
         types = 'fantasy'
@@ -216,7 +216,7 @@ class TocMachine(GraphMachine):
         print("I'm entering biography")
 
         for movie in movie_dic_array:
-            if 'biography' in movie['genre']:
+            if 'biography' in movie['genre'].lower():
                 search_str += movie['name'] + "\n"
         global types
         types = 'biography'
@@ -233,7 +233,7 @@ class TocMachine(GraphMachine):
         print("I'm entering action")
 
         for movie in movie_dic_array:
-            if 'action' in movie['genre']:
+            if 'action' in movie['genre'].lower():
                 search_str += movie['name'] + "\n"
         global types
         types = 'action'
@@ -250,7 +250,7 @@ class TocMachine(GraphMachine):
         print("I'm entering adventure")
 
         for movie in movie_dic_array:
-            if 'adventure' in movie['genre']:
+            if 'adventure' in movie['genre'].lower():
                 search_str += movie['name'] + "\n"
         global types
         types = 'adventure'
