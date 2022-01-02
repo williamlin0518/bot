@@ -34,7 +34,7 @@ for store in movie_data:
     value = store.find_all('span', attrs={'name': 'nv'})
 
     imageDiv = store.find('div', {'class': 'lister-item-image float-left'})
-    movie_dic['img'] = img = imageDiv.a.img('loadlate')
+    movie_dic['img'] = img = imageDiv.a.img['loadlate']
 
     movie_dic['votes'] = value[0].text
     movie_dic['gross'] = value[1].text if len(value) > 1 else 'No data'
