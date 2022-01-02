@@ -164,12 +164,31 @@ class TocMachine(GraphMachine):
         print("I'm entering all")
 
         for movie in movie_dic_array:
-            if 'crime' in movie['genre']:
+            if 'crime' in movie['genre'].lower():
                 str += movie['name'] + "\n"
         global types
         types = 'crime'
         str += '----請輸入一個你想看的----'
         send_text_message(event.reply_token, str)
 
-    def on_exit_on_enter_randomDetail(self):
-        print("Leaving randomDetail")
+
+    def is_going_to_romance(self, event):
+        text = event.message.text
+        return text.lower() == "romance"
+
+    def on_enter_romance(self, event):
+        str = ""
+        print("I'm entering all")
+
+        for movie in movie_dic_array:
+            if 'romance' in movie['genre']:
+                str += movie['name'] + "\n"
+        global types
+        types = 'romance'
+        str += '----請輸入一個你想看的----'
+        send_text_message(event.reply_token, str)
+
+
+
+
+
