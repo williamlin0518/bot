@@ -16,7 +16,7 @@ load_dotenv()
 
 machine = TocMachine(
     states=["user", "menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",
-            "biography", "intro", "fsm", 'randomDetail'],
+            "biography", "intro", "fsm", 'randomDetail','123456789'],
     transitions=[
         {
             "trigger": "advance",
@@ -144,6 +144,13 @@ machine = TocMachine(
             "dest": "intro",
             "conditions": "is_going_to_intro",
         },
+        {
+            "trigger": "advance",
+            "source": "user",
+            "dest": "123456789",
+            "conditions": "is_going_to_123456789",
+        },
+
 
         {"trigger": "go_back",
          "source": ["menu", "whichKind", "random", "all", "crime", "romance", "adventure", "action", "fantasy",

@@ -209,6 +209,9 @@ class TocMachine(GraphMachine):
     def is_going_to_biography(self, event):
         text = event.message.text
         return text.lower() == "biography"
+    def is_going_to_123456789(self, event):
+        text = event.message.text
+        return text.lower() == "1"
 
     def on_enter_biography(self, event):
         global search_str
