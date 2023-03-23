@@ -4,7 +4,7 @@
 
 [![Known Vulnerabilities](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020/badge.svg)](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020)
 
-[choose](choose.png)
+![choose](choose.png)
 Code for TOC Project 2020
 
 A Line bot based on a finite state machine
